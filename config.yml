@@ -1,0 +1,17 @@
+viaa:
+    logging:
+        level: DEBUG
+app:
+    mediahaven:
+        host: !ENV ${MH_HOST}
+        username: !ENV ${MH_USER}
+        password: !ENV ${MH_PASSWORD}
+        client_id: !ENV ${MH_CLIENT_ID}
+        client_secret: !ENV ${MH_CLIENT_SECRET}
+    database:
+        host: !ENV ${DB_HOST}
+        port: !ENV ${DB_PORT}
+        user: !ENV ${DB_USER}
+        password: !ENV ${DB_PASSWORD}
+        dbname: !ENV ${DB_NAME}
+        table: !ENV ${DB_TABLE}
