@@ -153,6 +153,13 @@ tags
 # Persistent undo
 [._]*.un~
 
+# .env-files: all envs except .env.example
+.env
+.env.tst
+.env.int
+.env.qas
+.env.prd
+
 # Personal
 .commit.msg
 rem.md
