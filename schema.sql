@@ -10,7 +10,8 @@ CREATE TABLE public.mh_mtd_cleanup (
 	transformed_metadata xml NULL, -- Metadata after transformation and cleaning: this is the new item's sidecar.
 	transformations json NULL, -- JSON-representation of possible per-record transformations/updates.
 	status TEXT NOT NULL CHECK (status IN ('TODO', 'IN_PROGRESS', 'DONE', 'ERROR')) DEFAULT ('TODO'),
-	error text NULL,
+	error TEXT NULL,
+	error_msg TEXT NULL,
 	created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	modified_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT fragment_id_pkey PRIMARY KEY (fragment_id)
