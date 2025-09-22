@@ -7,7 +7,7 @@
 CREATE TABLE public.mh_mtd_cleanup (
 	fragment_id varchar(96) NOT NULL, -- The fragment_id of this item in MediaHaven.
 	original_metadata xml NULL, -- Full metadata of the item in MediaHaven before transformation/update.
-	transformed_metadata xml NULL, -- Metadata after transformation and cleaning: this is the new item's sidecar.
+	update_object xml NULL, -- MH-UpdateObject after applying transformations and cleaning.
 	transformations json NULL, -- JSON-representation of possible per-record transformations/updates.
 	status TEXT NOT NULL CHECK (status IN ('TODO', 'IN_PROGRESS', 'DONE', 'ERROR')) DEFAULT ('TODO'),
 	error TEXT NULL,
