@@ -6,6 +6,7 @@
 
 CREATE TABLE public.mh_mtd_cleanup (
 	fragment_id varchar(96) NOT NULL, -- The fragment_id of this item in MediaHaven.
+	cp_id varchar(10) NOT NULL, -- The CP's OR-id whom this fragment/record belongs to.
 	original_metadata xml NULL, -- Full metadata of the item in MediaHaven before transformation/update.
 	update_object xml NULL, -- MH-UpdateObject after applying transformations and cleaning.
 	transformations json NULL, -- JSON-representation of possible per-record transformations/updates.

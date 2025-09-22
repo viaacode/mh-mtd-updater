@@ -17,6 +17,7 @@ class RecordStatus(str, Enum):
 @dataclass
 class MhCleanupRecord:
     fragment_id: str
+    cp_id: str
     original_metadata: str
     update_object: str
     transformations: Jsonb
