@@ -18,6 +18,7 @@ class RecordStatus(str, Enum):
 class MhCleanupRecord:
     fragment_id: str
     cp_id: str
+    jira_ticket: str
     original_metadata: str
     update_object: str
     transformations: Jsonb
