@@ -67,3 +67,22 @@ class DatabaseService(object):
                     (status, fragment_id),
                 )
                 conn.commit()
+
+    def update_with_result(self, item: MhCleanupRecord):
+        """Convenience method to update this record's state after a cleanup-run."""
+        with self.pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    f"""UPDATE public.{self.table} SET
+                        original_metadata = %s, update_object = %s, status = %s, error = %s, error_msg = %s
+                    WHERE fragment_id = %s;""",
+                    (
+                        item.original_metadata,
+                        item.update_object,
+                        item.status,
+                        item.error,
+                        item.error_msg,
+                        item.fragment_id,
+                    ),
+                )
+                conn.commit()
