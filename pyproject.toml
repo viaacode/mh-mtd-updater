@@ -11,6 +11,7 @@ keywords = ["validation", "transformation", "metadata"]
 requires-python = ">=3.10"
 dependencies = [
     "mediahaven==0.8.1",
+    "meemoo-mh-mtd-lib==0.4.0",
     "viaa-chassis==0.2.1",
     "psycopg[binary]==3.2.10",
     "psycopg-pool==3.2.6"
@@ -24,6 +25,4 @@ classifiers = [
 [project.optional-dependencies]
 dev = [
     "ruff",
-    "pytest",
-    "pytest-cov",
 ]
