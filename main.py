@@ -120,10 +120,7 @@ def process_item(item, database, reason: str):
                 print(mh_update_object)
                 # Update item in MediaHaven
                 try:
-                    # ~ mh_resp = mh_client.records.update(item.fragment_id, xml=mh_update_object)
-                    raise MediaHavenException(
-                        status_code=666, message="The number of the beast!"
-                    )
+                    mh_resp = mh_client.records.update(item.fragment_id, xml=mh_update_object)
                 except MediaHavenException as e:
                     log.warning(
                         "Status_code=%s, msg=%s", e.status_code, error_msg_from(e)
