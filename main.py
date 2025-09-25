@@ -2,9 +2,8 @@ import time
 import datetime
 import argparse
 from typing import Any
-from enum import Enum
 from io import BytesIO
-from services.db import DatabaseService, RecordStatus, MhCleanupRecord
+from services.db import DatabaseService, RecordStatus
 import logging
 
 from viaa.configuration import ConfigParser
@@ -12,13 +11,12 @@ from viaa.configuration import ConfigParser
 
 from mediahaven import MediaHaven
 from mediahaven.mediahaven import MediaHavenException, AcceptFormat
-from mediahaven.oauth2 import ROPCGrant, RequestTokenError
+from mediahaven.oauth2 import ROPCGrant
 
 from meemoo_mtd.mediahaven_config import MhFormat
 from meemoo_mtd.transformations import (
     transform,
     default_transformations,
-    merge_transformations_lists,
 )
 
 
@@ -198,7 +196,7 @@ def main():
         processed_count += 1
 
         if args.limit and processed_count >= args.limit:
-            print(f"Stopping because limit has been reached...")
+            print("Stopping because limit has been reached...")
             break
 
         time.sleep(args.sleep)
