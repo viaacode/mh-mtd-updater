@@ -8,6 +8,7 @@ from psycopg.types.json import Jsonb
 
 
 class RecordStatus(str, Enum):
+    NEW = "NEW"
     TODO = "TODO"
     IN_PROGRESS = "IN_PROGRESS"
     DONE = "DONE"
