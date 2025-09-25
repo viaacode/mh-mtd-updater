@@ -32,12 +32,25 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-3. Install...
+Or using `uv`:
+
+```bash
+uv venv .venv
+source .venv/bin/activate
+```
+
+3. Install:
 
 ```bash
 (.venv) python -m pip install . \
     --extra-index-url http://do-prd-mvn-01.do.viaa.be:8081/repository/pypi-all/simple \
     --trusted-host do-prd-mvn-01.do.viaa.be
+```
+
+Or using `uv`:
+
+```bash
+(.venv) uv sync --extra-index-url http://do-prd-mvn-01.do.viaa.be:8081/repository/pypi-all/simple
 ```
 
 ## Usage
