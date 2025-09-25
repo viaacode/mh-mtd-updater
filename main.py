@@ -58,6 +58,8 @@ def error_from(error: Any) -> str:
             return 'MH_UNAUTHORIZED'
         elif error.status_code == 404:
             return 'MH_REC_NOTFOUND'
+        elif error.status_code == 429:
+            return 'MH_TOO_MANY_REQUESTS'
         elif error.status_code == 500:
             return 'MH_SERVER_ERROR'
         else:
