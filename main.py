@@ -53,40 +53,44 @@ def error_from(error: Any) -> str:
     # The 'MH'-cases
     if isinstance(error, MediaHavenException):
         if error.status_code == 400:
-            return 'MH_BAD_REQUEST'
+            return "MH_BAD_REQUEST"
         elif error.status_code in (401, 403):
-            return 'MH_UNAUTHORIZED'
+            return "MH_UNAUTHORIZED"
         elif error.status_code == 404:
-            return 'MH_REC_NOTFOUND'
+            return "MH_REC_NOTFOUND"
         elif error.status_code == 429:
-            return 'MH_TOO_MANY_REQUESTS'
+            return "MH_TOO_MANY_REQUESTS"
         elif error.status_code == 500:
-            return 'MH_SERVER_ERROR'
+            return "MH_SERVER_ERROR"
         else:
-            return 'MH_UNKOWN_ERROR'
+            return "MH_UNKOWN_ERROR"
     elif isinstance(error, ValueError):
-        return 'MH_REC_UNCORRECTABLE'
+        return "MH_REC_UNCORRECTABLE"
     # The Generic unknown case
     else:
-        return 'UNKOWN_ERROR'
+        return "UNKOWN_ERROR"
+
 
 def error_msg_from(error: Any) -> str:
     """Retrieve the `message`-attr from an error, or something else if it's
     not present."""
-    if hasattr(error, 'msg'):
+    if hasattr(error, "msg"):
         return error.msg
-    elif hasattr(error, 'message'):
+    elif hasattr(error, "message"):
         return error.message
-    elif hasattr(error, 'error_msg'):
+    elif hasattr(error, "error_msg"):
         return error.error_message
     else:
         return str(error)
+
 
 def process_item(item, database, reason: str):
     log.info(f'Processing "{item.fragment_id}"...')
     # Get item from MediaHaven and turn it into a bytes-object
     try:
-        mh_record_xml = mh_client.records.get(item.fragment_id, accept_format=AcceptFormat.XML)
+        mh_record_xml = mh_client.records.get(
+            item.fragment_id, accept_format=AcceptFormat.XML
+        )
     except MediaHavenException as e:
         log.warning("Status_code=%s, msg=%s", e.status_code, error_msg_from(e))
         item.error = error_from(e)
@@ -94,7 +98,7 @@ def process_item(item, database, reason: str):
         item.status = RecordStatus.ERROR
     else:
         item.original_metadata = mh_record_xml.raw_response
-        mh_rec_as_bytes = BytesIO(mh_record_xml.raw_response.encode('utf-8'))
+        mh_rec_as_bytes = BytesIO(mh_record_xml.raw_response.encode("utf-8"))
         # Perform transformations
         try:
             mh_update_object = transform(
@@ -104,7 +108,9 @@ def process_item(item, database, reason: str):
                 out_format=MhFormat.MH_UPDATEOBJECT,
             )
         except ValueError as e:
-            log.warning('Could not properly transform/clean "%s": %s', item.fragment_id, e)
+            log.warning(
+                'Could not properly transform/clean "%s": %s', item.fragment_id, e
+            )
             item.error = error_from(e)
             item.error_msg = error_msg_from(e)
             item.status = RecordStatus.ERROR
@@ -117,14 +123,18 @@ def process_item(item, database, reason: str):
                 # Update item in MediaHaven
                 try:
                     # ~ mh_resp = mh_client.records.update(item.fragment_id, xml=mh_update_object)
-                    raise MediaHavenException(status_code=666, message="The number of the beast!")
+                    raise MediaHavenException(
+                        status_code=666, message="The number of the beast!"
+                    )
                 except MediaHavenException as e:
-                    log.warning("Status_code=%s, msg=%s", e.status_code, error_msg_from(e))
+                    log.warning(
+                        "Status_code=%s, msg=%s", e.status_code, error_msg_from(e)
+                    )
                     item.error = error_from(e)
                     item.error_msg = error_msg_from(e)
                     item.status = RecordStatus.ERROR
                 else:
-                    log.info(f'Succesfully updated {item.fragment_id}.')
+                    log.info(f"Succesfully updated {item.fragment_id}.")
                     item.status = RecordStatus.DONE
             else:
                 # None returned
@@ -136,7 +146,7 @@ def process_item(item, database, reason: str):
 def calculate_time_to_process(nr_of_items, limit, sleep_secs) -> str:
     """"""
     nr_of_items = nr_of_items if not limit else limit
-    total_secs = nr_of_items*sleep_secs if sleep_secs else nr_of_items
+    total_secs = nr_of_items * sleep_secs if sleep_secs else nr_of_items
     return str(datetime.timedelta(seconds=total_secs))
 
 
