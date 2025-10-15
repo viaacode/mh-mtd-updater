@@ -20,6 +20,10 @@ CREATE TABLE public.mh_mtd_cleanup (
 );
 COMMENT ON TABLE public.mh_mtd_cleanup IS 'Table to hold all records for items who''s metadata needs to be rectified.';
 
+-- Indexes
+
+CREATE INDEX mh_mtd_cleanup_jira_ticket_idx ON public.mh_mtd_cleanup (jira_ticket);
+
 -- Column comments
 
 COMMENT ON COLUMN public.mh_mtd_cleanup.fragment_id IS 'The fragment_id of this item in MediaHaven.';
