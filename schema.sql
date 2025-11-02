@@ -23,6 +23,7 @@ COMMENT ON TABLE public.mh_mtd_cleanup IS 'Table to hold all records for items w
 -- Indexes
 
 CREATE INDEX mh_mtd_cleanup_jira_ticket_idx ON public.mh_mtd_cleanup (jira_ticket);
+CREATE INDEX mh_mtd_cleanup_status_idx ON public.mh_mtd_cleanup (status);
 
 -- Column comments
 
