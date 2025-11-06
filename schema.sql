@@ -11,7 +11,7 @@ CREATE TABLE public.mh_mtd_cleanup (
 	original_metadata xml NULL, -- Full metadata of the item in MediaHaven before transformation/update.
 	update_object xml NULL, -- MH-UpdateObject after applying transformations and cleaning.
 	transformations json NULL, -- JSON-representation of possible per-record transformations/updates.
-	status TEXT NOT NULL CHECK (status IN ('NEW', 'TODO', 'IN_PROGRESS', 'DONE', 'ERROR')) DEFAULT ('NEW'),
+	status TEXT NOT NULL CHECK (status IN ('PENDING', 'TODO', 'IN_PROGRESS', 'DONE', 'ERROR', 'ON_HOLD')) DEFAULT ('PENDING'),
 	error TEXT NULL,
 	error_msg TEXT NULL,
 	created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
