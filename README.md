@@ -4,7 +4,7 @@ Python service to add or update and correct metadata in MediaHaven.
 
 This service:
 
-* selects records in a database,
+* selects records in a database or reads lines from a CSV
 * requests the item's metadata from MediaHaven,
 * corrects the metadata,
 * adds or updates metadata when these updates are provided.
@@ -55,6 +55,15 @@ Or using `uv`:
 
 ## Usage
 
+There are currently two different CLI-interfaces:
+
+1. one that operates with a DB as input (for long running bulk-updates) and
+2. one that operates with a CSV as input (for shorter bulk-update runs).
+
+When using the DB as input, status about the transformations and the update are
+stored in the database. When using a CSV as input a report is generated
+containing the feedback about the update-run.
+
 1. Fill in and export the environment variables in `.env`:
 
 ```bash
@@ -63,10 +72,12 @@ Or using `uv`:
 
 Check usage:
 
-```bash
-(.venv) python main.py -h
+- for a database-driven update-run:
 
-usage: main.py [-h] -r REASON [-n LIMIT] [-s SLEEP]
+```bash
+(.venv) python db.py -h
+
+usage: db.py [-h] -r REASON [-n LIMIT] [-s SLEEP]
 
 Python service to add or update and correct metadata in MediaHaven.
 
@@ -80,9 +91,42 @@ options:
                         Number of seconds to wait between each item (optional: defaults to 0)
 ```
 
+- for a CSV-driven update-run:
+
+```bash
+(.venv) python csv.py -h
+
+usage: csv.py [-h] -o OR_ID -r REASON [-d CSV_DELIMITER] [--dryrun | --no-dryrun] input_file
+
+Python CLI interface to the `mh-mtd-updater`. Allows for bulk-metadate-updates in MediaHaven via CSV-input while also validating or correcting (where possible) MediaHaven-
+metadata.
+
+positional arguments:
+  input_file            Filepath to the CSV-file which contains the metadata-updates.
+
+options:
+  -h, --help            show this help message and exit
+  -o OR_ID, --or_id OR_ID
+                        Provide the OR-id of the partner for which these updates need to be performed. (required)
+  -r REASON, --reason REASON
+                        Provide a reason for the update. Usually a reference to an Jira-ticket. (required)
+  -d CSV_DELIMITER, --csv-delimiter CSV_DELIMITER
+                        Provide a custom delimiter to parse the CSV-file. (default: ',')
+  --dryrun, --no-dryrun
+                        Perform a dry-run. Use the `--no-dryrun` command line argument to disable a dry-run, ie., to actually perform the update against MediaHaven. (default:
+                        True)
+
+```
+
+
 2. Run with:
 
 ```bash
-(.venv) python main.py --reason "JIRA-XXX"
+(.venv) python db.py --reason "JIRA-XXX"
 ```
 
+or
+
+```bash
+(.venv) python cli.py /path/to/inputfile.csv --or_id "OR-a1b2c3d" --reason "JIRA-XXX"
+```
