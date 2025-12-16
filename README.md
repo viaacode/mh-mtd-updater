@@ -84,7 +84,8 @@ Python service to add or update and correct metadata in MediaHaven.
 options:
   -h, --help            show this help message and exit
   -r REASON, --reason REASON
-                        The reason to be provided for the updates that will be performed. Usually a reference to a Jira-ticket.
+                        The reason to be provided for the updates that will be
+                        performed. Usually a reference to a Jira-ticket.
   -n LIMIT, --limit LIMIT
                         Number of items to process (optional)
   -s SLEEP, --sleep SLEEP
@@ -98,8 +99,9 @@ options:
 
 usage: csv.py [-h] -o OR_ID -r REASON [-d CSV_DELIMITER] [--dryrun | --no-dryrun] input_file
 
-Python CLI interface to the `mh-mtd-updater`. Allows for bulk-metadate-updates in MediaHaven via CSV-input while also validating or correcting (where possible) MediaHaven-
-metadata.
+Python CLI interface to the `mh-mtd-updater`. Allows for bulk-metadate-updates
+in MediaHaven via CSV-input while also validating or correcting (where
+possible) MediaHaven-metadata.
 
 positional arguments:
   input_file            Filepath to the CSV-file which contains the metadata-updates.
@@ -107,15 +109,17 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   -o OR_ID, --or_id OR_ID
-                        Provide the OR-id of the partner for which these updates need to be performed. (required)
+                        Provide the OR-id of the partner for which these
+                        updates need to be performed. (required)
   -r REASON, --reason REASON
-                        Provide a reason for the update. Usually a reference to an Jira-ticket. (required)
+                        Provide a reason for the update. Usually a reference to
+                        an Jira-ticket. (required)
   -d CSV_DELIMITER, --csv-delimiter CSV_DELIMITER
                         Provide a custom delimiter to parse the CSV-file. (default: ',')
   --dryrun, --no-dryrun
-                        Perform a dry-run. Use the `--no-dryrun` command line argument to disable a dry-run, ie., to actually perform the update against MediaHaven. (default:
-                        True)
-
+                        Perform a dry-run. Use the `--no-dryrun` command line
+                        argument to disable a dry-run, ie., to actually perform the update against
+                        MediaHaven. (default: True)
 ```
 
 
