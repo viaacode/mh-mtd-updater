@@ -113,13 +113,13 @@ options:
                         updates need to be performed. (required)
   -r REASON, --reason REASON
                         Provide a reason for the update. Usually a reference to
-                        an Jira-ticket. (required)
+                        a Jira-ticket. (required)
   -d CSV_DELIMITER, --csv-delimiter CSV_DELIMITER
                         Provide a custom delimiter to parse the CSV-file. (default: ',')
   --dryrun, --no-dryrun
                         Perform a dry-run. Use the `--no-dryrun` command line
-                        argument to disable a dry-run, ie., to actually perform the update against
-                        MediaHaven. (default: True)
+                        argument to disable a dry-run, ie., to actually perform the update
+                        against MediaHaven. (default: True)
 ```
 
 
