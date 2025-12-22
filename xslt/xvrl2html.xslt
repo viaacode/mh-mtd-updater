@@ -126,15 +126,30 @@
 
   <xsl:template match="xvrl:report" mode="detail">
     <!-- TODO: How to make sure we output these detail reports in the current dir...? -->
+    <xsl:variable name="current-report-count"><xsl:number count="xvrl:report" /></xsl:variable>
     <xsl:variable name="output_filename">
       <xsl:value-of select="concat('./', xvrl:metadata/xvrl:supplemental/mm:IdentifierValue/text())" />
       <xsl:text>_</xsl:text>
-      <xsl:number count="xvrl:report" />
+      <xsl:value-of select="$current-report-count" />
       <xsl:text>.html</xsl:text>
     </xsl:variable>
     <xsl:variable name="thumb-url" as="xs:string"><xsl:value-of select="xvrl:metadata/xvrl:supplemental/mh:PathToKeyframe/text()" /></xsl:variable>
     <xsl:variable name="mh-web-url" as="xs:string"><xsl:value-of select="concat('https://archief.viaa.be/mh/media/search/', xvrl:metadata/xvrl:supplemental/mh:FragmentId/text(), '/details')" /></xsl:variable>
     <xsl:variable name="report-detail-title">Report detail for: <xsl:value-of select="xvrl:metadata/xvrl:supplemental/mm:IdentifierValue/text()" /> (# <xsl:number count="xvrl:report" />)</xsl:variable>
+    <xsl:variable name="prev-count"><xsl:value-of select="$current-report-count - 1" /></xsl:variable>
+    <xsl:variable name="next-count"><xsl:value-of select="$current-report-count + 1" /></xsl:variable>
+    <xsl:variable name="prev-report-url">
+      <xsl:value-of select="concat('./', preceding-sibling::xvrl:report[1]/xvrl:metadata/xvrl:supplemental/mm:IdentifierValue/text())" />
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="$prev-count" />
+      <xsl:text>.html</xsl:text>
+    </xsl:variable>
+    <xsl:variable name="next-report-url">
+      <xsl:value-of select="concat('./', following-sibling::xvrl:report[1]/xvrl:metadata/xvrl:supplemental/mm:IdentifierValue/text())" />
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="$next-count" />
+      <xsl:text>.html</xsl:text>
+    </xsl:variable>
     <xsl:result-document href="{$output_filename}" method="xhtml" omit-xml-declaration="yes" include-content-type="no" encoding="UTF-8" html-version="5.0">
       <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
         <head>
@@ -146,6 +161,7 @@
         <body>
           <header>
             <h1><xsl:value-of select="$report-detail-title" /></h1>
+            <p><a href="{$prev-report-url}">&lt; Previous</a> - <a href="./report.html">Up</a> - <a href="{$next-report-url}">Next &gt;</a></p>
           </header>
           <table>
             <tr>
@@ -186,15 +202,14 @@
               </td>
             </tr>
             <tr>
-              <th>UpdateFields</th>
+              <th>MHThumbLink</th>
               <td>
+                <a href="{$mh-web-url}">
+                  <img src="{$thumb-url}" style="max-height: 200px; max-width: 200px" />
+                </a>
               </td>
             </tr>
         </table>
-          <!-- TODO: implement better version -->
-          <a href="{$mh-web-url}">
-            <img src="{$thumb-url}" style="max-height: 200px; max-width: 200px" />
-          </a>
         </body>
       </html>
     </xsl:result-document>
