@@ -160,6 +160,9 @@ tags
 .env.qas
 .env.prd
 
+# Exclude all html-pages under `reports`
+reports/*.html
+
 # Personal
 .commit.msg
 rem.md
