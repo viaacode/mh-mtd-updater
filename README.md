@@ -7,7 +7,8 @@ This service:
 * selects records in a database or reads lines from a CSV
 * requests the item's metadata from MediaHaven,
 * corrects the metadata,
-* adds or updates metadata when these updates are provided.
+* adds or updates metadata when these updates are provided,
+* and, in case of CSV-input, generates a HTML-report.
 
 It is really nothing more then a wrapper around the `meemoo-mh-mtd-lib`.
 
@@ -75,9 +76,9 @@ Check usage:
 - for a database-driven update-run:
 
 ```bash
-(.venv) python db.py -h
+(.venv) python db-cli.py -h
 
-usage: db.py [-h] -r REASON [-n LIMIT] [-s SLEEP]
+usage: db-cli.py [-h] -r REASON [-n LIMIT] [-s SLEEP]
 
 Python service to add or update and correct metadata in MediaHaven.
 
@@ -95,9 +96,9 @@ options:
 - for a CSV-driven update-run:
 
 ```bash
-(.venv) python csv.py -h
+(.venv) python csv-cli.py -h
 
-usage: csv.py [-h] -o OR_ID -r REASON [-d CSV_DELIMITER] [--dryrun | --no-dryrun] input_file
+usage: csv-cli.py [-h] -o OR_ID -r REASON [-d CSV_DELIMITER] [--dryrun | --no-dryrun] input_file
 
 Python CLI interface to the `mh-mtd-updater`. Allows for bulk-metadate-updates
 in MediaHaven via CSV-input while also validating or correcting (where
@@ -126,7 +127,7 @@ options:
 2. Run with:
 
 ```bash
-(.venv) python db.py --reason "JIRA-XXX"
+(.venv) python db-cli.py --reason "JIRA-XXX"
 ```
 
 or
