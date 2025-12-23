@@ -11,7 +11,7 @@ keywords = ["validation", "transformation", "metadata"]
 requires-python = ">=3.10"
 dependencies = [
     "mediahaven==0.8.1",
-    "meemoo-mh-mtd-lib==0.5.0",
+    "meemoo-mh-mtd-lib==0.6.0",
     "viaa-chassis==0.2.1",
     "psycopg[binary]==3.2.10",
     "psycopg-pool==3.2.6"
