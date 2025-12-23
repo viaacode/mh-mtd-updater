@@ -1,3 +1,9 @@
+"""
+# db.py
+
+CLI interface to the `mh-mtd-updater` with DB as input.
+"""
+
 import time
 import datetime
 import argparse
