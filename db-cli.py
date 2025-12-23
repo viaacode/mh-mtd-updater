@@ -1,5 +1,5 @@
 """
-# db.py
+# db-cli.py
 
 CLI interface to the `mh-mtd-updater` with DB as input.
 """
