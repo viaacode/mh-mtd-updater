@@ -133,5 +133,5 @@ options:
 or
 
 ```bash
-(.venv) python cli.py /path/to/inputfile.csv --or_id "OR-a1b2c3d" --reason "JIRA-XXX"
+(.venv) python csv-cli.py /path/to/inputfile.csv --or_id "OR-a1b2c3d" --reason "JIRA-XXX"
 ```
